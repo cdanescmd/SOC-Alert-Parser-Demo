@@ -9,10 +9,10 @@ The **full version**, available at [FreshCMD.com](https://freshcmd.com), include
 
 ## Features (Demo Version)
 
-✅ Parse sample CSV alert data  
-✅ Display structured alert summaries  
-✅ Generate basic HTML report output  
-✅ Clean, commented PowerShell code for easy review  
+- Parse sample CSV alert data  
+- Display structured alert summaries  
+- Generate basic HTML report output  
+- Clean, commented PowerShell code for easy review  
 
 **Full version adds:**
 - Multi-format input support (`.csv`, `.json`, `.log`)  
