@@ -46,12 +46,11 @@ The **full version**, available at [FreshCMD.com](https://freshcmd.com), include
 ├── LICENSE # Demo license terms
 └── SECURITY.md # Trust and verification details
 <code>
-
 ---
+  
+## Quick Start
 
-### Quick Start
-
-## Requirements
+### Requirements
 - Windows PowerShell 5.1 **or** PowerShell 7+  
 - Permission to run local scripts (`Set-ExecutionPolicy RemoteSigned`)
 
