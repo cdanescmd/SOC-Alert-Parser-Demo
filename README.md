@@ -49,13 +49,13 @@ The **full version**, available at [FreshCMD.com](https://freshcmd.com), include
 
 ---
 
-## Quick Start
+### Quick Start
 
-### Requirements
+## Requirements
 - Windows PowerShell 5.1 **or** PowerShell 7+  
 - Permission to run local scripts (`Set-ExecutionPolicy RemoteSigned`)
 
-### Run the Demo
+## Run the Demo
 ```powershell
 cd src
 .\SOC_Alert_Parser_Demo.ps1
