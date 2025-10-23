@@ -1,0 +1,6 @@
+Timestamp,Source,EventID,Severity,Description
+2025-10-21T09:12:43Z,Firewall,1001,High,Port scan detected from 10.0.2.5
+2025-10-21T10:05:22Z,Endpoint,2003,Medium,Suspicious process behavior detected
+2025-10-21T11:47:00Z,SIEM,4001,Low,Unusual login time observed
+2025-10-21T13:20:15Z,Firewall,1002,High,Multiple failed login attempts
+2025-10-21T15:35:08Z,Endpoint,2005,Medium,Malware signature match
