@@ -44,7 +44,7 @@ The **full version**, available at [FreshCMD.com](https://freshcmd.com), include
 │
 ├── BUY_FULL_VERSION.md # Link and details for full version
 ├── LICENSE # Demo license terms
-└── SECURITY.md # Trust and verification details"
+└── SECURITY.md # Trust and verification details
 <code>
 
 ---
