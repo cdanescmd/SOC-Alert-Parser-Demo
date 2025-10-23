@@ -1,4 +1,4 @@
-# 🧠 SOC Alert Parser (Demo)
+# SOC Alert Parser (Demo)
 
 **SOC Alert Parser** is a lightweight PowerShell utility that helps security analysts quickly parse, normalize, and summarize raw alert data from SIEM platforms such as Microsoft Sentinel, Splunk, or Elastic.
 
@@ -7,7 +7,7 @@ The **full version**, available at [FreshCMD.com](https://freshcmd.com), include
 
 ---
 
-## ⚙️ Features (Demo Version)
+## Features (Demo Version)
 
 ✅ Parse sample CSV alert data  
 ✅ Display structured alert summaries  
@@ -21,9 +21,42 @@ The **full version**, available at [FreshCMD.com](https://freshcmd.com), include
 - Enhanced HTML/CSV reporting templates  
 - Automatic normalization of alert types  
 
-> 🔗 [View the full version](https://freshcmd.com/products/soc-alert-parser)
+> [View the full version](https://freshcmd.com/products/soc-alert-parser)
 
 ---
 
-## 📦 Repository Structure
+## Repository Structure
+
+<code> 
+"SOC-Alert-Parser-Demo/
+│
+├── demo/
+│ ├── sample_alerts.csv # Example alert data
+│ ├── demo_output.html # Example HTML report
+│
+├── src/
+│ └── SOC_Alert_Parser_Demo.ps1 # Limited demo version of the parser
+│
+├── docs/
+│ ├── overview.md # Detailed feature overview
+│ ├── install_guide.md # Setup and usage guide
+│ └── changelog.md # Version history
+│
+├── BUY_FULL_VERSION.md # Link and details for full version
+├── LICENSE # Demo license terms
+└── SECURITY.md # Trust and verification details"
+<code>
+
+---
+
+## Quick Start
+
+### Requirements
+- Windows PowerShell 5.1 **or** PowerShell 7+  
+- Permission to run local scripts (`Set-ExecutionPolicy RemoteSigned`)
+
+### Run the Demo
+```powershell
+cd src
+.\SOC_Alert_Parser_Demo.ps1
 
