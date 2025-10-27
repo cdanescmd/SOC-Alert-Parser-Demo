@@ -16,4 +16,4 @@ Get-FileHash SOC-Alert-Parser-Demo.zip -Algorithm SHA256
 
 If you discover a vulnerability, issue, or security concern related to this repository, please report it privately.
 
-📧 support@freshcmd.com
+[security@freshcmd.com](mailto:security@freshcmd.com)
