@@ -8,7 +8,7 @@ The full version of **SOC Alert Parser** expands on this demo with:
 - Detailed HTML and CSV reporting templates
 - Integration-ready output for SIEM tools
 
-🎯 **Get the full version here:** [https://freshcmd.com/products/soc-alert-parser](https://freshcmd.com/products/soc-alert-parser)
+🎯 **Get the full version here:** [https://freshcmd.com/products/soc-alert-parser](https://freshcmd.com/products/)
 
-Questions? Contact **support@freshcmd.com**
+Questions? Contact [**support@freshcmd.com**](mailto:support@freshcmd.com)
 
