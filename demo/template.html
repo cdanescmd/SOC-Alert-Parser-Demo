@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<header style="display: flex; justify-content: space-between; align-items: center;">
+  <div style="display: flex; align-items: center; gap: 12px;">
+<h1 class="dashboard-title">SOC Alert Parser Dashboard</h1>
+    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Light/Dark Mode">🌙</button>
+    <button onclick="window.print()" class="print-btn">🖨️</button>
+ <p><strong>Report generated:</strong> REPORT_TIMESTAMP_PLACEHOLDER</p>
+  </div>
+</header>
+
+ <style>
+    :root {
+      --bg: #1e1e2f;
+      --card-bg: #2c3e50;
+      --card-hover: #34495e;
+      --text: #2c3e50;
+      --muted: #bdc3c7;
+    }
+
+    body.light-mode {
+      --bg: #f5f7fa;
+      --card-bg: #ffffff;
+      --card-hover: #e0e0e0;
+      --text: #2c3e50;
+      --muted: #555;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 25px;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 5px;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      margin: 0;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .theme-toggle {
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text);
+      transition: transform 0.3s;
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.2);
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: linear-gradient(90deg, rgb(7, 174, 234), rgb(43, 245, 152));
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      color: #0a0a0a;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+    }
+
+    .card h3 {
+      margin: 0;
+      font-size: 1.4rem;
+    }
+
+    .card .subtitle {
+      font-size: 0.9rem;
+      color: #1c1c1c;
+      margin-bottom: 15px;
+    }
+
+    canvas {
+      max-width: 100%;
+    }
+
+    .gauge {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: conic-gradient(#f1c40f 46%, #ecf0f1 0%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+    }
+
+    .score {
+      font-size: 2em;
+      font-weight: bold;
+      color: #0a0a0a;
+    }
+
+    .severity-toggle {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .severity-toggle button {
+  background-color: rgba(255, 255, 255, 0.1); /* subtle contrast in dark mode */
+  color: var(--text);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+    .severity-toggle button.active {
+      background: #3498db;
+    }
+    .severity-toggle button:hover {
+  background-color: rgba(255, 255, 255, 0.25); /* lighter glow in dark mode */
+  color: var(--text);
+}
+
+    table {
+      width: 100%;
+      margin-top: 10px;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    }
+
+    th {
+      background-color: rgba(0, 0, 0, 0.1);
+      color: #0a0a0a;
+    }
+
+    tr:hover {
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    @media (max-width: 600px) {
+      .card { padding: 15px; }
+      h3 { font-size: 1.2rem; }
+    }
+        .table-wrapper {
+      overflow-x: auto;
+      margin-top: 10px;
+    }
+
+    .table-wrapper table {
+      min-width: 600px;
+    }
+
+    .full-width {
+      grid-column: 1 / -1;
+    }
+
+.parsed-alerts {
+  grid-column: span 2;
+}
+.print-btn {
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--text);
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 999;
+  transition: all 0.3s ease;
+}
+
+.print-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+@media print {
+  .print-btn,
+  .theme-toggle {
+    display: none;
+  }
+
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    background-color: var(--bg);
+    color: var(--text);
+  }
+
+  .card {
+    background: var(--card-bg) !important;
+    color: var(--text) !important;
+    box-shadow: none;
+  }
+
+  header, .dashboard {
+    page-break-inside: avoid;
+  }
+}
+.dashboard-title {
+  color: #ecf0f1; /* default for dark mode */
+}
+
+body.light-mode .dashboard-title {
+  color: #2c3e50; /* darker color for light mode */
+}
+
+  </style>
+</head>
+<body class="light-mode">
+  <header>
+    <div>
+      <p class="subtitle">A streamlined dashboard for parsing SOC alerts, visualizing threat patterns, and accelerating triage decisions.</p>
+    </div>
+  </header>
+
+  <div class="dashboard">
+    <!-- Parsed Summary -->
+    <div class="card wide-card">
+      <h3>Parsed Summary</h3>
+      <p class="subtitle">Total alerts and severity breakdown</p>
+      <ul>
+        <li><strong>Total Alerts:</strong> 75</li>
+        <li><strong>High Severity:</strong> 18</li>
+        <li><strong>Medium Severity:</strong> 32</li>
+        <li><strong>Low Severity:</strong> 25</li>
+      </ul>
+    </div>
+
+    <!-- Device Hotspots -->
+    <div class="card">
+      <h3>Device Hotspots</h3>
+      <p class="subtitle">Top devices by alert count</p>
+      <ul>
+        <li>FW-01 — 12 alerts</li>
+        <li>EDR-07 — 10 alerts</li>
+        <li>SIEM — 9 alerts</li>
+      </ul>
+    </div>
+
+    <!-- Alert Timeline -->
+    <div class="card">
+      <h3>Alert Timeline</h3>
+      <p class="subtitle">Alerts parsed over time</p>
+      <canvas id="activeAlertsChart" height="200"></canvas>
+    </div>
+
+    <!-- Alert Type Breakdown -->
+    <div class="card">
+      <h3>Alert Type Breakdown</h3>
+      <p class="subtitle">By Category</p>
+      <canvas id="vulnChart" height="200"></canvas>
+    </div>
+
+    <!-- Parsed Alert Table -->
+   <div class="card parsed-alerts">
+      <h3>Parsed Alerts</h3>
+      <p></p>
+<div class="severity-toggle">
+  <button onclick="filterSeverity('All')" class="active">All</button>
+  <button onclick="filterSeverity('High')">High</button>
+  <button onclick="filterSeverity('Medium')" class="medium-btn">Medium</button>
+  <button onclick="filterSeverity('Low')">Low</button>
+</div>
+      <table id="alertsTable">
+        <thead>
+          <tr>
+            <th>Timestamp</th>
+            <th>Device Name</th>
+            <th>Severity</th>
+            <th>Alert Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-severity="High"><td>2025-10-28 10:12</td><td>FW-01</td><td>High</td><td>Port Scan</td><td>Multiple external IPs scanning port 22</td></tr>
+          <tr data-severity="Medium"><td>2025-10-28 11:45</td><td>EDR-07</td><td>Medium</td><td>Suspicious Process</td><td>Encoded PowerShell execution</td></tr>
+          <tr data-severity="Low"><td>2025-10-28 13:20</td><td>SIEM</td><td>Low</td><td>Unusual Login</td><td>Login from new geo-location</td></tr>
+        </tbody>
+      <div class="table-wrapper">
+  <table id="alertsTable">
+    <!-- your table content -->
+    </table>
+  </div>
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const toggleBtn = document.querySelector('.theme-toggle');
+      body.classList.toggle('light-mode');
+      toggleBtn.textContent = body.classList.contains('light-mode') ? '🌙' : '☀️';
+      updateChartColors();
+    }
+
+    function updateChartColors() {
+      const textColor = getComputedStyle(document.body).getPropertyValue('--text').trim();
+      activeAlertsChart.options.plugins.legend.labels.color = textColor;
+      vulnChart.options.plugins.legend.labels.color = textColor;
+      activeAlertsChart.reset();
+      vulnChart.reset();
+      activeAlertsChart.update();
+      vulnChart.update();
+    }
+
+const ctx = document.getElementById('activeAlertsChart').getContext('2d');
+
+const activeAlertsChart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: ['08:00', '10:00', '12:00', '14:00', '16:00', '18:00'],
+    datasets: [
+      {
+        label: 'Total Alerts',
+        data: [3, 7, 12, 9, 6, 4],
+        borderColor: '#e74c3c',
+        backgroundColor: 'rgba(231, 76, 60, 0.2)',
+        fill: true,
+        tension: 0.3,
+        pointRadius: 0
+      },
+      {
+        label: 'High Severity',
+        type: 'scatter',
+        data: [
+          { x: '10:00', y: 2 },
+          { x: '12:00', y: 4 },
+          { x: '14:00', y: 3 }
+        ],
+        backgroundColor: '#e74c3c',
+        pointRadius: 6
+      },
+      {
+        label: 'Medium Severity',
+        type: 'scatter',
+        data: [
+          { x: '08:00', y: 1 },
+          { x: '12:00', y: 5 },
+          { x: '16:00', y: 2 }
+        ],
+        backgroundColor: '#f1c40f',
+        pointRadius: 6
+      },
+      {
+        label: 'Low Severity',
+        type: 'scatter',
+        data: [
+          { x: '10:00', y: 1 },
+          { x: '14:00', y: 2 },
+          { x: '18:00', y: 3 }
+        ],
+        backgroundColor: '#2ecc71',
+        pointRadius: 6
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    animation: {
+      duration: 1200,
+      easing: 'easeOutQuart'
+    },
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label: function(context) {
+            if (context.dataset.type === 'scatter') {
+              return `${context.dataset.label}: ${context.raw.y} alerts`;
+            } else {
+              return `Total Alerts: ${context.raw}`;
+            }
+          }
+        }
+      },
+      legend: {
+        position: 'top',
+        labels: {
+          color: getComputedStyle(document.body).getPropertyValue('--text').trim()
+        }
+      }
+    },
+    scales: {
+      y: {
+        beginAtZero: true
+      },
+      x: {
+        grid: { display: false }
+      }
+    }
+  }
+});
+
+    const vulnCtx = document.getElementById('vulnChart').getContext('2d');
+    const vulnChart = new Chart(vulnCtx, {
+      type: 'pie',
+      data: {
+        labels: ['Port Scan', 'Suspicious Process', 'Unusual Login', 'Malware', 'Other'],
+        datasets: [{
+          data: [CHART_DATA_PLACEHOLDER],
+          backgroundColor: [
+            '#e74c3c',
+            '#f1c40f',
+            '#3498db',
+            '#9b59b6',
+            '#2ecc71'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        animation: {
+          animateRotate: true,
+          animateScale: true,
+          duration: 1000,
+          easing: 'easeOutQuart'
+        },
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: {
+              color: getComputedStyle(document.body).getPropertyValue('--text').trim()
+            }
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                const label = context.label || '';
+                const value = context.raw || 0;
+                return `${label}: ${value} alerts`;
+              }
+            }
+          }
+        }
+      }
+    });
+
+    function filterSeverity(level) {
+      document.querySelectorAll('.severity-toggle button').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.textContent === level) btn.classList.add('active');
+      });
+
+      const rows = document.querySelectorAll('#alertsTable tbody tr');
+      rows.forEach(row => {
+        const severity = row.getAttribute('data-severity');
+        row.style.display = (level === 'All' || severity === level) ? '' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>
