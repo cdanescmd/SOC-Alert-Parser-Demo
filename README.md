@@ -50,19 +50,20 @@ The **full version**, available at [FreshCMD.com](https://freshcmd.com/products)
 
 ⚠️ Important: Only edit report_template.html to change layout or styling. 
 The script will overwrite demo_output.html every time it runs.
-  
-## Quick Start
-### Requirements
+
+---
+# Quick Start
+## Requirements
 - Windows PowerShell 5.1 or PowerShell 7+
 - macOS/Linux users must install and run via pwsh
 - Script execution permission (Windows only):
   Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
   
-### Run the Demo
-### Windows
+## Run the Demo
+## Windows
 ```cd src```
 ```.\SOC_Alert_Parser_Demo.ps1```
-### Mac
+## Mac
 ```cd src```
 ```pwsh ./SOC_Alert_Parser_Demo.ps1```
 
