@@ -6,7 +6,8 @@ This **demo version** provides a preview of the tool’s functionality using sam
 The **full version**, available at [FreshCMD.com](https://freshcmd.com/products), includes advanced features for real-world SOC and security operations environments.
 
 ---
-
+### 🔹 1. Running the Parser in PowerShell
+<img src="./images/pwsh-demo.png" alt="PowerShell demo screenshot" width="600"/>
 ## Features (Demo Version)
 
 - Parse sample CSV alert data  
