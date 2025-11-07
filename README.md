@@ -7,17 +7,23 @@ The **full version**, available at [FreshCMD.com](https://freshcmd.com/products)
 
 ---
 ### 🔹 1. Running the Parser in PowerShell
-<img src="./images/pwsh-demo.png" alt="PowerShell demo screenshot" width="600"/>
+<img src="./images/demo-launch.png" alt="PowerShell demo launch" width="600"/>
 
-### 🔹 2. Parsed Alert Output (Console View)
-<img src="./images/parsed-alert-output.png" alt="Parsed alert output" width="600"/>
+### 🔹 2. Demo Homepage
+<img src="./images/demo-homepage.png" alt="SOC Alert Parser Demo Welcome Page" width="600"/>
 
-### 🔹 3. Generated HTML Report to Dashboard
-<img src="./images/dashboard-demo.png" alt="HTML report output" width="600"/>
+### 🔹 4. Run Parser & Generate Report
+<img src="./images/run-parser-generate-report.png" alt="Running the Parser in Powershell" width="600"/>
+
+### 🔹 4. Generated HTML Report to Dashboard
+<img src="./images/dashboard-demo.png" alt="Parsed alert output" width="600"/>
+
+### 🔹 5. View Sample Alerts
+<img src="./images/view-sample-alerts.png" alt="Parsed alert output" width="600"/>
 
 ## Features (Demo Version)
 - Parse sample CSV alert data  
-- Display structured alert summaries  
+- Display structured alert summaries (up to 10 alerts) 
 - Generate basic HTML report output  
 - Clean, commented PowerShell code for easy review  
 
@@ -66,11 +72,14 @@ The script will overwrite demo_output.html every time it runs.
 - Script execution permission (Windows only):
   Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
   
-## Run the Demo
+# Run the Demo
 ## Windows
+```pwsh```
 ```cd src```
 ```.\SOC_Alert_Parser_Demo.ps1```
+
 ## Mac
+```pwsh```
 ```cd src```
-```pwsh ./SOC_Alert_Parser_Demo.ps1```
+``` ./SOC_Alert_Parser_Demo.ps1```
 
