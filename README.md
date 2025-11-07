@@ -10,7 +10,7 @@ The **full version**, available at [FreshCMD.com](https://freshcmd.com/products)
 <img src="./images/pwsh-demo.png" alt="PowerShell demo screenshot" width="600"/>
 
 ### 🔹 2. Parsed Alert Output (Console View)
-<img src="./images/pwsh-demo.png" alt="Parsed alert output" width="600"/>
+<img src="./images/parsed-alert-output.png" alt="Parsed alert output" width="600"/>
 
 ### 🔹 3. Generated HTML Report to Dashboard
 <img src="./images/dashboard-demo.png" alt="HTML report output" width="600"/>
