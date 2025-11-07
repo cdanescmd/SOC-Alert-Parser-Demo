@@ -31,7 +31,7 @@ Type "2", Press "Enter" (extra dashboard layouts and html outputs available in S
 ### 🔹 5. View Sample Alerts
 <img src="./images/view-sample-alerts.png" alt="Parsed alert output" width="600"/>
 
-Type "3", Press "Enter" (
+Type "3", Press "Enter"
 
 ## Features (Demo Version)
 - Parse sample CSV alert data  
