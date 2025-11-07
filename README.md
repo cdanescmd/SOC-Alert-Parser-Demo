@@ -8,8 +8,14 @@ The **full version**, available at [FreshCMD.com](https://freshcmd.com/products)
 ---
 ### 🔹 1. Running the Parser in PowerShell
 <img src="./images/pwsh-demo.png" alt="PowerShell demo screenshot" width="600"/>
-## Features (Demo Version)
 
+### 🔹 2. Parsed Alert Output (Console View)
+<img src="./images/pwsh-demo.png" alt="Parsed alert output" width="600"/>
+
+### 🔹 3. Generated HTML Report to Dashboard
+<img src="./images/dashboard-demo.png" alt="HTML report output" width="600"/>
+
+## Features (Demo Version)
 - Parse sample CSV alert data  
 - Display structured alert summaries  
 - Generate basic HTML report output  
