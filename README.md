@@ -91,7 +91,7 @@ The script will overwrite demo_output.html every time it runs.
 
 ```cd src```
 
-```& ../SOC_Alert_Parser_Demo.ps1```
+```& ..\SOC_Alert_Parser_Demo.ps1```
 
 ## Mac
 
